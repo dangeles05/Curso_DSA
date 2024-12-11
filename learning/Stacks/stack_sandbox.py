@@ -1,8 +1,8 @@
 from Node import Node
 import logging
 
-class Stack():
-    def __init__(self, top_item = None, size = 0, limit = 1000):
+class Stack:
+    def __init__(self, top_item=None, limit=1000, size=0):
         self.top_item = top_item
         self.limit = limit
         self.size = size
@@ -14,9 +14,10 @@ class Stack():
         return self.size == 0
 
     def peek(self):
-        if (self.is_empty()):
-            raise AttributeError("La pila está vacía")
-        return self.top_item.get_value()
+        if (not self.is_empty()):
+            return self.top_item.get_value()
+        else:
+            logging.warning("La pila esta totalmente vacia!")
 
     def push(self, value):
         if (self.has_space()):
@@ -25,13 +26,13 @@ class Stack():
             self.top_item = item
             self.size += 1
         else:
-            print("La pila esta llena ¡No queda espacio!")
+            logging.warning("La pila esta llena ¡No queda espacio!")
 
     def pop(self):
-        if(not self.is_empty()):
-            item_to_remove = self.top_item
+        item_to_remove = self.top_item
+        if (not self.is_empty()):
             self.top_item = item_to_remove.get_next_node()
             self.size -= 1
             return item_to_remove.get_value()
         else:
-            raise AttributeError("La pila está vacía!")
+            logging.warning("La pila esta totalmente vacia!")
